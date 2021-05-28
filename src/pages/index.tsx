@@ -17,6 +17,7 @@ import Button from '../components/Button';
 import {chakra} from '@chakra-ui/system';
 import {Media} from '../components/Media';
 import {createIcon} from '@chakra-ui/icon';
+import {useBreakpointValue} from '@chakra-ui/media-query';
 
 interface HomePageProps {
   data: GatsbyTypes.HomePageQuery;
@@ -73,11 +74,31 @@ const TearDrop = createIcon({
 const Home: FC<HomePageProps> = ({data}) => {
   const image = getImage(data.hero1.childImageSharp.gatsbyImageData);
   const hero3 = getImage(data.hero3.childImageSharp.gatsbyImageData);
-  console.log(data.hero3);
+  const hero5Mobile = getImage(
+    data.hero5Mobile.childImageSharp.gatsbyImageData
+  );
+  const hero1Mobile = getImage(
+    data.hero1Mobile.childImageSharp.gatsbyImageData
+  );
+  const hero2Mobile = getImage(
+    data.hero2Mobile.childImageSharp.gatsbyImageData
+  );
+  const lastImage = getImage(data.hero4.childImageSharp.gatsbyImageData);
 
   // Use like this:
-  const bgImage = convertToBgImage(image);
-  const hero3BgImage = convertToBgImage(hero3);
+  const bgImage = useBreakpointValue({
+    base: convertToBgImage(hero1Mobile),
+    md: convertToBgImage(image),
+  });
+  const hero3BgImage = useBreakpointValue({
+    base: convertToBgImage(hero2Mobile),
+    md: convertToBgImage(lastImage),
+  });
+  const cleanImage = useBreakpointValue({
+    base: convertToBgImage(hero5Mobile),
+    md: convertToBgImage(hero3),
+  });
+
   console.log(hero3BgImage);
 
   return (
@@ -95,14 +116,15 @@ const Home: FC<HomePageProps> = ({data}) => {
         <BackgroundImage {...bgImage}>
           <Stack
             spacing="6"
+            mt="20"
             direction="column"
             p={['5', '10', '20']}
-            mt="400px"
+            align={['center', 'flex-start']}
             h="100%"
           >
             <Text
+              textAlign={['center', 'left']}
               mt="auto"
-              color="lightBlue"
               fontWeight="bold"
               fontSize="4xl"
               mr="auto"
@@ -110,33 +132,50 @@ const Home: FC<HomePageProps> = ({data}) => {
               Your Body Craves Collagen,
               <br /> Your Tastebuds Crave Avasara
             </Text>
-            <Text>Low Cal Beauty Boost in Three Great Flavors</Text>
+            <Text textAlign={['center', 'left']}>
+              Low Cal Beauty Boost in Three Great Flavors
+            </Text>
             <Button>Your water now</Button>
           </Stack>
         </BackgroundImage>
       </Box>
       <chakra.section
         display="flex"
-        flexDir={['column', 'row']}
+        flexDir={{base: 'column', lg: 'row'}}
         color="white"
         bg="darkestBlue"
+        py="20"
+        px="10"
       >
-        <Box w={['100%', '40%']} p={['4', '20']}>
-          <GatsbyImage
-            alt="Swimming Woman"
-            image={data.hero2.childImageSharp.gatsbyImageData}
-          />
+        <Box w={{base: '100%', lg: 'row'}} p={{md: '4', lg: '20'}}>
+          <Media greaterThan="md">
+            <GatsbyImage
+              alt="Swimming Woman"
+              image={data.hero2.childImageSharp.gatsbyImageData}
+            />
+          </Media>
         </Box>
-        <Stack p={['10', '20', '40']} w={['100%', '40%']} spacing="6">
-          <Text fontSize="8xl">Avasara</Text>
-          <Text fontSize="4xl" fontStyle="italic">
+        <Stack
+          p={['10', '20', '20', '40']}
+          w={{md: '100%', lg: 'row'}}
+          spacing="6"
+        >
+          <Text fontSize={{base: '6xl', md: '8xl'}} whiteSpace="nowrap">
+            Avasara
+          </Text>
+          <Text fontSize={{base: '2xl', md: '6xl'}} fontStyle="italic">
             noun • Sanskrit
           </Text>
           <StackDivider h="2px" bg="white" />
-          <Text fontWeight="bold" fontSize="4xl" letterSpacing="wider">
+          <Text
+            fontWeight="bold"
+            fontSize={{base: '2xl', md: '4xl'}}
+            letterSpacing="wider"
+            wordBreak="keep-all"
+          >
             Opportunity to Shine
           </Text>
-          <Text fontSize="2xl" lineHeight="9">
+          <Text fontSize={{base: 'xl', md: '2xl'}} lineHeight="9">
             Every day, we strive to be our best selves...To make the most of
             every opportunity.Avasara helps you achieve that.
           </Text>
@@ -152,8 +191,9 @@ const Home: FC<HomePageProps> = ({data}) => {
           fontSize={['xl', '2xl', '3xl']}
           maxW={['100%', '40%']}
           spacing="4"
+          align={['center', 'flex-start']}
         >
-          <Text>
+          <Text textAlign={{base: 'center', md: 'left'}}>
             Our proprietary, natural high-purity collagenis called type 1. It’s
             scientifically shown to <br /> benefit your skin, hair, nails and
             more.
@@ -166,12 +206,12 @@ const Home: FC<HomePageProps> = ({data}) => {
             Seize your opportunity with Avasara.
             <br />
           </Text>
-          <Button mt={4}>Your water now</Button>
+          <Button my="20">Your water now</Button>
         </Stack>
       </chakra.section>
       <chakra.section minH="620px" minW="100vw">
-        <BackgroundImage {...hero3BgImage}>
-          <Flex p={['20', '30', '40']} minH="900px" minW="100vw">
+        <BackgroundImage {...cleanImage}>
+          <Flex p={['8', '20', '30', '40']} minH="900px" minW="100vw">
             <Flex direction="column" mt="auto" mr="auto">
               <Text
                 mt="auto"
@@ -184,7 +224,8 @@ const Home: FC<HomePageProps> = ({data}) => {
               </Text>
               <Text
                 color="white"
-                fontSize={['3xl', '4xl', '5xl']}
+                fontSize={['2xl', '3xl', '4xl', '5xl']}
+                mb="8"
                 fontWeight="bold"
               >
                 No Artificial Flavors or <br /> Colors, Zero Sugar, and <br />
@@ -204,6 +245,11 @@ const Home: FC<HomePageProps> = ({data}) => {
             shouldWrapChildren
             overflowX="scroll"
             justify={['flex-start', 'center']}
+            sx={{
+              '.gatsby-image-wrapper': {
+                width: '30vw',
+              },
+            }}
           >
             {[data.product1, data.product2, data.product3].map(image => (
               <GatsbyImage
@@ -213,7 +259,7 @@ const Home: FC<HomePageProps> = ({data}) => {
               />
             ))}
           </HStack>
-          <Button mx="auto" mb="4">
+          <Button mx="auto" mt="20" mb="20">
             You water now
           </Button>
         </Flex>
@@ -228,37 +274,65 @@ const Home: FC<HomePageProps> = ({data}) => {
           <Flex flexDir="column">
             <Text
               fontSize={['xl', '2xl']}
+              textAlign={['center', 'left']}
               textTransform="uppercase"
               letterSpacing="wider"
               fontWeight="bold"
-              mb="8"
+              my="8"
             >
               Avasara science
             </Text>
-            <Heading color="lightestBlue">
+            <Heading
+              my="8"
+              fontSize="2xl"
+              textAlign={['center', 'left']}
+              color="lightestBlue"
+            >
               Cologen May Be the Most Important Protein in Your Body:
             </Heading>
-            <Text color="lightestBlue" mt="4" fontSize="2xl">
+            <Text
+              textAlign={['center', 'left']}
+              color="lightestBlue"
+              mt="4"
+              mb="15"
+              fontSize="2xl"
+            >
               The best way to get Collagen and the hydration you need is through
               our water.
             </Text>
-            <Button>Learn More</Button>
           </Flex>
-          <Flex flexDir="column" mt={['4', '0']}>
+          <Stack
+            align={['center', 'flex-start']}
+            flexDir="column"
+            mt={['4', '0']}
+            spacing={['8', '4']}
+          >
             {[
               'Only the highest-grade collagen peptides',
               'Manufactured via a gentle enzymatic process',
               'Rapid absorption in your body for maximum effectiveness',
               'Unique dual action: more collagen now, better collagen production in the future',
             ].map(text => (
-              <HStack key={text} spacing="2">
+              <HStack key={text}>
                 <TearDrop boxSize="5em" />
-                <Text color="white" fontSize="2xl">
+                <Text
+                  color="white"
+                  marginInlineStart="0"
+                  fontSize={['lg', '2xl']}
+                >
                   {text}
                 </Text>
               </HStack>
             ))}
-          </Flex>
+            <Button
+              size="lg"
+              color="darkestBlue"
+              backgroundColor="lightestBlue"
+              mb="30px !important"
+            >
+              Learn more
+            </Button>
+          </Stack>
         </Flex>
       </chakra.section>
       <Box
@@ -272,9 +346,9 @@ const Home: FC<HomePageProps> = ({data}) => {
         }}
         minH="1000px"
       >
-        <BackgroundImage {...bgImage}>
+        <BackgroundImage {...hero3BgImage}>
           <Stack
-            spacing="6"
+            spacing="8"
             justify="center"
             direction="column"
             p={['10', '20', '40']}
@@ -282,11 +356,14 @@ const Home: FC<HomePageProps> = ({data}) => {
             mr={['auto', '0']}
             my="auto"
             h="100%"
+            color="white"
           >
             <Text fontSize="4xl" textAlign="center">
               Seize Every <br /> Opportunity with <br /> Avasara
             </Text>
-            <Button alignSelf="center">Your water now</Button>
+            <Button size="lg" alignSelf="center">
+              Your water now
+            </Button>
           </Stack>
         </BackgroundImage>
       </Box>
@@ -296,18 +373,42 @@ const Home: FC<HomePageProps> = ({data}) => {
 
 export const query = graphql`
   query HomePage {
-    hero1: file(relativePath: {eq: "home-page-hero-1.png"}) {
+    hero1Mobile: file(relativePath: {eq: "hero-1-mobile.png"}) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 400
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+    hero1: file(relativePath: {eq: "home-page-hero-1.jpg"}) {
+      childImageSharp {
+        gatsbyImageData(
+          width: 1488
+          placeholder: BLURRED
+          transformOptions: {cropFocus: SOUTHEAST}
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+    hero5Mobile: file(relativePath: {eq: "hero-3-mobile.jpg"}) {
+      childImageSharp {
+        gatsbyImageData(formats: [AUTO, WEBP])
+      }
+    }
+    hero2: file(relativePath: {eq: "woman-swimming.jpeg"}) {
+      childImageSharp {
+        gatsbyImageData(formats: [AUTO, WEBP])
+      }
+    }
+    hero2Mobile: file(relativePath: {eq: "home-page-hero-2-mobile.png"}) {
       childImageSharp {
         gatsbyImageData(
           width: 1488
           placeholder: BLURRED
           formats: [AUTO, WEBP, AVIF]
         )
-      }
-    }
-    hero2: file(relativePath: {eq: "woman-swimming.jpeg"}) {
-      childImageSharp {
-        gatsbyImageData(formats: [AUTO, WEBP])
       }
     }
     product1: file(relativePath: {eq: "product-1.png"}) {
@@ -326,6 +427,11 @@ export const query = graphql`
       }
     }
     theCologen: file(relativePath: {eq: "the-cologen-you-need.png"}) {
+      childImageSharp {
+        gatsbyImageData(formats: [AUTO, WEBP, AVIF])
+      }
+    }
+    hero4: file(relativePath: {eq: "hero-3.jpg"}) {
       childImageSharp {
         gatsbyImageData(formats: [AUTO, WEBP, AVIF])
       }

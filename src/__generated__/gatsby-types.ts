@@ -592,13 +592,6 @@ type SitePlugin = Node & {
 };
 
 type SitePluginPluginOptions = {
-  readonly shopName: Maybe<Scalars['String']>;
-  readonly accessToken: Maybe<Scalars['String']>;
-  readonly apiVersion: Maybe<Scalars['Date']>;
-  readonly verbose: Maybe<Scalars['Boolean']>;
-  readonly paginationSize: Maybe<Scalars['Int']>;
-  readonly includeCollections: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly downloadImages: Maybe<Scalars['Boolean']>;
   readonly resetCSS: Maybe<Scalars['Boolean']>;
   readonly isUsingColorMode: Maybe<Scalars['Boolean']>;
   readonly name: Maybe<Scalars['String']>;
@@ -611,14 +604,6 @@ type SitePluginPluginOptions = {
   readonly allExtensions: Maybe<Scalars['Boolean']>;
   readonly isTSX: Maybe<Scalars['Boolean']>;
   readonly jsxPragma: Maybe<Scalars['String']>;
-};
-
-
-type SitePluginPluginOptions_apiVersionArgs = {
-  formatString: Maybe<Scalars['String']>;
-  fromNow: Maybe<Scalars['Boolean']>;
-  difference: Maybe<Scalars['String']>;
-  locale: Maybe<Scalars['String']>;
 };
 
 type SitePluginPackageJson = {
@@ -1995,13 +1980,6 @@ type SitePluginFilterInput = {
 };
 
 type SitePluginPluginOptionsFilterInput = {
-  readonly shopName: Maybe<StringQueryOperatorInput>;
-  readonly accessToken: Maybe<StringQueryOperatorInput>;
-  readonly apiVersion: Maybe<DateQueryOperatorInput>;
-  readonly verbose: Maybe<BooleanQueryOperatorInput>;
-  readonly paginationSize: Maybe<IntQueryOperatorInput>;
-  readonly includeCollections: Maybe<StringQueryOperatorInput>;
-  readonly downloadImages: Maybe<BooleanQueryOperatorInput>;
   readonly resetCSS: Maybe<BooleanQueryOperatorInput>;
   readonly isUsingColorMode: Maybe<BooleanQueryOperatorInput>;
   readonly name: Maybe<StringQueryOperatorInput>;
@@ -2148,13 +2126,6 @@ type SitePageFieldsEnum =
   | 'pluginCreator.resolve'
   | 'pluginCreator.name'
   | 'pluginCreator.version'
-  | 'pluginCreator.pluginOptions.shopName'
-  | 'pluginCreator.pluginOptions.accessToken'
-  | 'pluginCreator.pluginOptions.apiVersion'
-  | 'pluginCreator.pluginOptions.verbose'
-  | 'pluginCreator.pluginOptions.paginationSize'
-  | 'pluginCreator.pluginOptions.includeCollections'
-  | 'pluginCreator.pluginOptions.downloadImages'
   | 'pluginCreator.pluginOptions.resetCSS'
   | 'pluginCreator.pluginOptions.isUsingColorMode'
   | 'pluginCreator.pluginOptions.name'
@@ -2773,13 +2744,6 @@ type SitePluginFieldsEnum =
   | 'resolve'
   | 'name'
   | 'version'
-  | 'pluginOptions.shopName'
-  | 'pluginOptions.accessToken'
-  | 'pluginOptions.apiVersion'
-  | 'pluginOptions.verbose'
-  | 'pluginOptions.paginationSize'
-  | 'pluginOptions.includeCollections'
-  | 'pluginOptions.downloadImages'
   | 'pluginOptions.resetCSS'
   | 'pluginOptions.isUsingColorMode'
   | 'pluginOptions.name'
@@ -2826,15 +2790,15 @@ type SitePluginSortInput = {
   readonly order: Maybe<ReadonlyArray<Maybe<SortOrderEnum>>>;
 };
 
-type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type HomePageQuery = { readonly hero1: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero2: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product1: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product2: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product3: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly theCologen: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero3: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
-
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSiteFunction: { readonly nodes: ReadonlyArray<Pick<SiteFunction, 'functionRoute'>> }, readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
+
+type HomePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type HomePageQuery = { readonly hero1Mobile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero1: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero5Mobile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero2: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero2Mobile: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product1: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product2: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly product3: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly theCologen: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero4: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }>, readonly hero3: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
 
 type SciencePageQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2845,6 +2809,11 @@ type HeaderLogoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type HeaderLogoQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
+
+type ScienceSectionImageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ScienceSectionImageQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -2871,10 +2840,5 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type ScienceSectionImageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ScienceSectionImageQuery = { readonly file: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> };
 
 }
