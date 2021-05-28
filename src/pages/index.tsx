@@ -84,7 +84,6 @@ const Home: FC<HomePageProps> = ({data}) => {
     <Flex direction="column" maxW="100vw">
       <Box
         as="section"
-        minW="fit-content"
         sx={{
           '& > div': {
             minH: '1000px',
@@ -94,7 +93,13 @@ const Home: FC<HomePageProps> = ({data}) => {
         minH="1000px"
       >
         <BackgroundImage {...bgImage}>
-          <Stack spacing="6" direction="column" p="20" mt="400px" h="100%">
+          <Stack
+            spacing="6"
+            direction="column"
+            p={['5', '10', '20']}
+            mt="400px"
+            h="100%"
+          >
             <Text
               mt="auto"
               color="lightBlue"

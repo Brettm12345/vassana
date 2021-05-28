@@ -19,7 +19,7 @@ const ScienceSection: FC<ScienceSectionProps> = ({children, heading}) => {
     }
   `);
   return (
-    <Flex w="750px" py="10" mx="auto" flexDir={['column', 'row']}>
+    <Flex maxW="750px" py="10" mx="auto" flexDir={['column', 'row']}>
       <GatsbyImage
         alt="Science"
         style={{

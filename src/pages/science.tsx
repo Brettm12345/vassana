@@ -22,8 +22,10 @@ const Science: FC<Props> = ({data}) => {
       <chakra.section minH="1000px">
         <BackgroundImage {...hero1Bg}>
           <Stack minH="1000px" justify="center" align="center" spacing="6">
-            <Heading color="darkBlue">Dual Action</Heading>
-            <Heading color="lightBlue">
+            <Heading color="darkBlue" textAlign="center">
+              Dual Action
+            </Heading>
+            <Heading color="lightBlue" textAlign="center">
               More Collagen Now, Better Collagen Tomorrow
             </Heading>
             <Text maxW="xl" textAlign="center" fontSize="xl">
@@ -77,7 +79,7 @@ const Science: FC<Props> = ({data}) => {
       <chakra.section>
         <Stack
           direction={['column', 'row']}
-          p="40"
+          p={['10', '20', '30', '40']}
           spacing="4"
           justify="center"
           w="80%"
@@ -103,7 +105,7 @@ const Science: FC<Props> = ({data}) => {
         </Stack>
         <Stack
           direction={['column', 'row']}
-          p="40"
+          p={['10', '20', '30', '40']}
           justify="center"
           spacing="4"
           mx="auto"
